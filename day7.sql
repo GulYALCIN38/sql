@@ -148,14 +148,21 @@ ALTER TABLE isciler
 alter column  maas type varchar(30) using (maas::varchar(30))
 
 
+
+--------------TRASACTION  (BEGIN, SAVEPOINT, ROLLBACK, COMMIT)
+--TRAM=SACTIONBASLATMAK ICIN BEGIM KOMUTU KULLANIRIZ BITIRMEK ICIN COMMIT
 drop table ogrenciler2
 CREATE TABLE ogrenciler2
 (
-id serial,
+id serial,-- COUNTER GIBI OTOMATIK CALISIR VE SAYI ATAR
 isim VARCHAR(50),
 veli_isim VARCHAR(50),
 yazili_notu real       
 );
+
+
+
+
 BEGIN;
 INSERT INTO ogrenciler2 VALUES(default, 'Ali Can', 'Hasan',75.5);
 INSERT INTO ogrenciler2 VALUES(default, 'Merve Gul', 'Ayse',85.3);
@@ -165,7 +172,7 @@ INSERT INTO ogrenciler2 VALUES(default, 'Nesibe Yilmaz', 'Ayse',95.3);
 savepoint y;
 INSERT INTO ogrenciler2 VALUES(default, 'Mustafa Bak', 'Can',99);
 INSERT INTO ogrenciler2 VALUES(default, 'Can Bak', 'Ali', 67.5);
-ROLLBACK to y;
+ROLLBACK to X;
 COMMIT;
 
 delete from ogrenciler2

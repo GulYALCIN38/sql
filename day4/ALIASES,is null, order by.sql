@@ -102,8 +102,46 @@ order by isim asc ,soyisim desc; --asc naturel siralar yazmasakta olur asc yi
 select isim, soyisim from insanlar1
 order by LENGTH (soyisim)desc;
 
+/*
+Eğer sutun uzunluğuna göre sıralamak istersek LENGTH komutu kullanırız 
+Ve yine uzunluğu büyükten küçüğe sıralamak istersek sonuna DESC komutunu ekleriz
+*/
+SELECT isim,soyisim FROM insanlar ORDER BY LENGTH (soyisim) DESC;
+-- Tüm isim ve soyisim değerlerini aynı sutunda çağırarak her bir sütun değerini uzunluğuna göre sıralayınız
 
+select isim||' '||soyisim as name from insanlar1
+order by length (isim||' '||soyisim) ;
 
-
+SELECT CONCAT(isim,' ',soyisim) AS isim_soyisim FROM insanlar1 ORDER BY LENGTH (isim)+LENGTH (soyisim)
+SELECT CONCAT(isim,' ',soyisim) AS isim_soyisim FROM insanlar1 ORDER BY LENGTH (concat(isim,soyisim))
+-- GROUP BY KULLANIMI
+CREATE TABLE manav
+(
+isim varchar(50),  Urun_adi varchar(50),  Urun_miktar int
+);
+INSERT INTO manav VALUES( 'Ali', 'Elma', 5);
+INSERT INTO manav VALUES( 'Ayse', 'Armut', 3);
+INSERT INTO manav VALUES( 'Veli', 'Elma', 2);
+INSERT INTO manav VALUES( 'Hasan', 'Uzum', 4);
+INSERT INTO manav VALUES( 'Ali', 'Armut', 2);
+INSERT INTO manav VALUES( 'Ayse', 'Elma', 3);
+INSERT INTO manav VALUES( 'Veli', 'Uzum', 5);
+INSERT INTO manav VALUES( 'Ali', 'Armut', 2);
+INSERT INTO manav VALUES( 'Veli', 'Elma', 3);
+INSERT INTO manav VALUES( 'Ayse', 'Uzum', 2);
+select * from manav
+delete from manav
+--Isme gore alinan toplam urunleri listeleyiniz
+SELECT isim,sum(urun_miktar) AS aldığı_toplam_urun FROM manav
+GROUP BY isim;
+--Isme gore alinan toplam urunleri bulun ve urunleri büyükten küçüğe listeleyiniz
+SELECT isim,sum(urun_miktar) AS aldığı_toplam_urun FROM manav
+GROUP BY isim
+ORDER BY aldığı_toplam_urun DESC;
+-- Urun ismine gore urunu alan toplam kisi sayisi
+SELECT urun_adi,count(isim) FROM manav
+GROUP BY urun_adi;
+SELECT isim,count(urun_adi) FROM manav
+GROUP BY isim
 
 
